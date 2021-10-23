@@ -1,0 +1,7 @@
+flask
+flask_restful
+psycopg2-binary
+flask-sqlalchemy
+flask-marshmallow
+marshmallow-sqlalchemy
+Flask-Migrate

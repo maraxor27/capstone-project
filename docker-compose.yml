@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  web_server:
+    #container_name: web_server
+    build: . 
+    ports:
+      - 5000:5000
+    volumes: 
+      - ./src:/myapp
+    entrypoint: python3 /myapp/main.py
+    depends_on:
+      - "postgres"
+      
+  postgres:
+    #container_name: postgres
+    image: postgres
+    env_file:
+      - database.env
+    volumes:
+      - ./database-data:/var/lib/postgresql/data/

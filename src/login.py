@@ -7,17 +7,18 @@ loginBlueprint = Blueprint("loginStuff", __name__, url_prefix="/")
 @loginBlueprint.route('/login', methods=['POST'])
 def login():
 	if request is None or request.json is None:
+		print("Empty request", flush=True)
 		return '400'
 	print("Request: ", request.json, flush=True)
 	if request.json['email'] is None or request.json['password'] is None:
+		print("Email or password missing", flush=True)
 		return '400'
 	user = User.query.filter(User.email==request.json['email'] and \
 		User.password==request.json['password']).one_or_none()
-	print("Account exists: ", user!=None, flush=True)
 	if user is None:
+		print("No user found", flush=True)
 		return '400'
 	login_user(user)
-	print("test", flush=True)
 	return '200'
 
 @loginBlueprint.route('/logout')

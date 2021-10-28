@@ -5,17 +5,12 @@ import enum
 db = flask_sqlalchemy.SQLAlchemy()
 ma = flask_marshmallow.Marshmallow()
 
-class UserType(enum.Enum):
-	USER = 0
-	OWNER = 1
-	AGENT = 2
-
 class User(db.Model):
 	__tablename__ = "users"
 	id = db.Column(db.Integer, primary_key=True)
 	email = db.Column(db.String(100))
 	password = db.Column(db.String(255))
-	userType = db.Column(db.Integer)
+	userType = db.Column(db.String(10))
 
 	def is_authenticated(self):
 		return True

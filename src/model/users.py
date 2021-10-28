@@ -1,10 +1,17 @@
-from . import db
+from . import ma
+from . import User
+from marshmallow import post_load
 
-class User(db.Model):
-	__tablename__ = "users"
-	id = db.Column(db.Integer, primary_key=True)
-	email = db.Column(db.String(100))
-	password = db.Column(db.String(255))
+class UserSchema(ma.Schema):
+	class Meta:
+		model = User
+		fields = ("id", "email", "password", "userType", "_links")
 
-	def __repr__(self):
-		return f"User:{self.id}<email: {self.email}, password:{self.password}>"
+	_links = ma.Hyperlinks({
+			"self": ma.URLFor("apiv2.users_user_id", values=dict(id="<id>")),
+			"collection": ma.URLFor("apiv2.users_users"),
+		})
+
+	@post_load
+	def make_user(self, data, **kwargs):
+		return User(**data)

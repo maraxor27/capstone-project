@@ -1,22 +1,20 @@
-from flask import Flask, send_from_directory, Blueprint
-from router import apiBlueprint
-
+from flask import Flask, send_from_directory, Blueprint, request
+from router import apiv1Blueprint, apiv2Blueprint
 #marshmallow does object serialization may be usefull later 
 from flask_marshmallow import Marshmallow
-
 from __init__ import create_app
+from login import loginBlueprint
+from model import User
 
-app = create_app()
 
-ma = Marshmallow(app)
+if __name__ == "__main__":
+	app = create_app()
 
-@app.route("/")
-def hello():
-	return send_from_directory("templates", "index.html")
+	@app.route("/")
+	def hello():
+		return send_from_directory("templates", "index.html")
 
-# from test import test1
-
-# test1()
-
-app.register_blueprint(apiBlueprint)
-app.run(host="0.0.0.0", port="5000", debug=True)
+	app.register_blueprint(apiv1Blueprint)
+	app.register_blueprint(apiv2Blueprint)
+	app.register_blueprint(loginBlueprint)
+	app.run(host="0.0.0.0", port="5000", debug=True)

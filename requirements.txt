@@ -1,7 +1,9 @@
 flask
 flask_restful
+flask_restx
 psycopg2-binary
 flask-sqlalchemy
 flask-marshmallow
 marshmallow-sqlalchemy
 Flask-Migrate
+flask-login

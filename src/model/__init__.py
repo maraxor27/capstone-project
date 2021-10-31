@@ -22,7 +22,7 @@ class User(db.Model):
 		return False
 
 	def get_id(self):
-		return id
+		return self.id
 
 	def __repr__(self):
 		return f"""User:{self.id}<email: {self.email}, password:{self.password}, 

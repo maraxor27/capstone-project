@@ -39,7 +39,7 @@ userTypes = ["USER", 'OWNER', 'AGENT']
 def checkUserType(func): #decorator that checks the userType
 	def inner(*args, **kwargs):
 		user_type = request.json.get('userType')
-		if user_type is str and user_type in userTypes:
+		if user_type in userTypes:
 			return func(*args, **kwargs)
 		abort(400, 'Bad userType')
 	return inner

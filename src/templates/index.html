@@ -2,13 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>OPR</title>
-    <meta name="description" content="My Page Description">
-    <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+    
+    <script src="//unpkg.com/vue@2.5.17/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script> -->
   </head>
+  <title>OPR</title>
   <body>
-    hello world
-    <p>
-    <img src="/static/images/github.png" width="100" height="100">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/static/js/header.js"></script>
+
+    <div id="app">
+      <myheader></myheader>
+    </div>
+    <!-- <img src="/static/images/github.png" width="100" height="100"> -->
+
+    <script>
+      var app = new Vue({el: '#app'})
+    </script>
+    
   </body>
 </html>

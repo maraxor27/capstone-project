@@ -24,7 +24,9 @@ def create_app():
 	
 	@loginManager.user_loader
 	def load_user(user_id):
-		return User.get(user_id)
+		user = User.query.filter(User.id==user_id).one_or_none();
+		print(user, flush=True)
+		return user
 	
 	db.init_app(app)
 	db.create_all()

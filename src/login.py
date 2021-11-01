@@ -1,11 +1,14 @@
 from flask import Blueprint, request, abort
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from model import User
+from model.users import UserSchema
 
 loginBlueprint = Blueprint("loginStuff", __name__, url_prefix="/")
 
 @loginBlueprint.route('/login', methods=['POST'])
 def login():
+	if current_user is not None and current_user.is_authenticated:
+		return UserSchema().dump(current_user)
 	if request is None or request.json is None:
 		return abort(400, "Empty request")
 	# print("Request: ", request.json, flush=True)
@@ -16,7 +19,7 @@ def login():
 	if user is None:
 		return abort(400, "User with matching credential not found")
 	login_user(user)
-	return 'ok'
+	return UserSchema().dump(user)
 
 @loginBlueprint.route('/logout')
 @login_required

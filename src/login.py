@@ -31,7 +31,7 @@ def login():
 
 @loginBlueprint.route('/logout')
 @login_required
-@userTypes_required_decorator_factory(["USER", "OWNER", "AGENT"])
+@userTypes_required_decorator_factory(["USER", "OWNER", "AGENT", "ADMIN"])
 def logout():
 	logout_user()
 	return 'ok'

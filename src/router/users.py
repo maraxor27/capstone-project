@@ -35,7 +35,7 @@ userParser = userNamespace.model('User', {
 			description="Must be one of the following ['USER', 'OWNER', 'AGENT']"),
 	})
 
-userTypes = ["USER", 'OWNER', 'AGENT']
+userTypes = ['USER', 'OWNER', 'AGENT', 'ADMIN']
 def checkUserType(func): #decorator that checks the userType
 	def inner(*args, **kwargs):
 		user_type = request.json.get('userType')

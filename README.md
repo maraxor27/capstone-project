@@ -10,6 +10,11 @@ To build:
 To run:
 - sudo docker-compose up (must be done twice on first run)
 
+Known error on MacOS
+- You must create a database-data folder in the root of the project and change the persmission to 0700
+  - mkdir database-data
+  - chmod 0700 database-data
+
 The flask config:
 - Listening on port 5000
 - Currently in debug mode (auto reload on file modification)

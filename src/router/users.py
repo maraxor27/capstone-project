@@ -1,6 +1,6 @@
 from flask import Blueprint, request, abort
-from model import User, db
-from model.users import UserSchema
+from dataAccessLayer.users import getAllUsers, createUser, getUser, removeUser, replaceUser
+from dataAccessLayer import DataAccessLayerException
 from flask_restx import Namespace, Resource, fields
 
 #depricated version of the api
@@ -26,6 +26,7 @@ def get_user(id):
 	return {"user" : json}
 
 
+# Current version of the api
 userNamespace = Namespace("users", path="/users")
 userParser = userNamespace.model('User', {
 		"email": fields.String(default="name@email.com", required=True),
@@ -49,61 +50,49 @@ class Users(Resource):
 	@userNamespace.response(200, 'Success')
 	@userNamespace.doc(description="This api endpoint returns all the user of the application.Once testing is over, this should be removed")
 	def get(self):
-		users = User.query.all()
-		json = UserSchema().dump(users, many=True)
-		return {"users" : json}
+		try:
+			return getAllUsers()
+		except DataAccessLayerException as e:
+			abort(e.code, e.message)
 
 	@userNamespace.response(200, 'Success')
-	@userNamespace.response(400, 'Invalide request')
+	@userNamespace.response(400, 'Invalid request')
 	@userNamespace.expect(userParser, validate=True)
 	@userNamespace.doc(description="This api endpoint creates a new user")
 	@checkUserType
 	def post(self):
-		user = UserSchema().load(request.json)
-		if User.query.filter(User.email == user.email).count() != 0:
-			abort(400, 'Email already used')
-		db.session.add(user)
-		db.session.commit()
-		json = UserSchema().dump(user)
-		return json
+		try:
+			return createUser(request.json)
+		except DataAccessLayerException as e:
+			abort(e.code, e.message)
+
 
 @userNamespace.route("/<int:id>")
 @userNamespace.doc(params={"id":"An ID",}, description="ID of a User")
 class UserID(Resource):
 	@userNamespace.response(200, 'Success')
-	@userNamespace.response(404, 'Not Found')
+	@userNamespace.response(400, 'Invalid request')
 	@userNamespace.doc(description="This api endpoint returns the information for a specific user")
 	def get(self, id):
-		user = User.query.filter(User.id == id).one_or_none()
-		if user is None:
-			abort(404, 'id doesn\'t not found')
-		json = UserSchema().dump(user)
-		return {"user" : json}
+		try:
+			return getUser(id)
+		except DataAccessLayerException as e:
+			abort(e.code, e.message)
 
 	@userNamespace.response(200, 'Success')
-	@userNamespace.response(404, 'Not Found')
+	@userNamespace.response(400, 'Invalid request')
 	def delete(self, id):
-		user = User.query.filter(User.id == id).one_or_none()
-		if user is None:
-			abort(404, 'id doesn\'t not found')
-		json = UserSchema().dump(user)
-		db.session.delete(user)
-		db.session.commit()
-		return {"user" : json}
+		try:
+			return removeUser(id)
+		except DataAccessLayerException as e:
+			abort(e.code, e.message)
 
 	@userNamespace.response(200, 'Success')
-	@userNamespace.response(404, 'Not Found')
+	@userNamespace.response(400, 'Invalid request')
 	@userNamespace.expect(userParser, validate=True)
 	@checkUserType
 	def put(self, id):
-		user = User.query.filter(User.id == id).one_or_none()
-		if user is None:
-			abort(404, 'id doesn\'t not found')
-		user.email = request.json.email
-		user.password = request.json.password
-		user.userType = request.json.userType
-		db.session.commit()
-		json = UserSchema().dump(user)
-		return {"user" : json}
-
-
+		try:
+			return replaceUser(id, request.json)
+		except DataAccessLayerException as e:
+			abort(e.code, e.message)

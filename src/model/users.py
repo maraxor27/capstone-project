@@ -1,6 +1,6 @@
 from . import ma
 from . import User
-from marshmallow import post_load
+from marshmallow import post_load, post_dump
 
 class UserSchema(ma.Schema):
 	class Meta:
@@ -15,3 +15,9 @@ class UserSchema(ma.Schema):
 	@post_load
 	def make_user(self, data, **kwargs): 
 		return User(**data)
+
+	# For security reasons
+	@post_dump()
+	def remove_password(self, data, **karwgs):
+		data.pop('password')
+		return data

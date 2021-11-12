@@ -75,7 +75,7 @@ Vue.component('myheader', {
 							<div class="input-group-prepend" style="width:6rem;">
 								<span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
 							</div>
-							<input type="text" class="form-control" 
+							<input type="password" class="form-control" 
 								v-model="password"
 								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>

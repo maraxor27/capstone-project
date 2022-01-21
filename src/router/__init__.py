@@ -1,10 +1,8 @@
 from flask import Blueprint
-from .users import usersBlueprint, userNamespace
 from flask_restx import Api
 
-# Depricated do not extend api/v1
-apiv1Blueprint = Blueprint("apiv1", __name__, url_prefix="/api/v1")
-apiv1Blueprint.register_blueprint(usersBlueprint)
+from .login import loginBlueprint 
+from .users import userNamespace
 
 
 apiv2Blueprint = Blueprint("apiv2", __name__, url_prefix="/api/v2")

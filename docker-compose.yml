@@ -7,7 +7,10 @@ services:
       - 5000:5000
     volumes: 
       - ./src:/myapp
-    entrypoint: python3 /myapp/main.py
+    entrypoint: flask run -h 0.0.0.0
+    environment:
+      - FLASK_APP=/myapp
+      - FLASK_ENV=development
     depends_on:
       - "postgres"
       

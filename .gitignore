@@ -1,4 +1,6 @@
 /database-data
 __pycache__/
-*.py[cod]
+*.pyc[cod]
 /src/static/images/*
+migrations/
+.DS_Store

@@ -12,7 +12,7 @@ Those README file do not explain all the aspect of the library used. However, th
 
 # Database migration 
 1. Get a terminal into the server container
-> sudo docker exec -it projet-seg3502_groupe_4_web_server_1 /bin/bash
+> sudo docker exec -it capstone-project_web_server_1 /bin/bash
 2. If the src/migrations folder doesn't exist, create it with 
 > flask db init
 3. Migrate the database

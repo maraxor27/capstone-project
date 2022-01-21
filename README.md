@@ -1,4 +1,4 @@
-# SEG3502project
+# capstone-project
 
 Required tools to run this project:
 - Docker 20.10.7

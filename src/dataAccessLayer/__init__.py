@@ -1,3 +1,2 @@
 from .exception import DataAccessLayerException
-
-DataAccessLayerException = DataAccessLayerException
+from .users import *

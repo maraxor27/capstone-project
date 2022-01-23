@@ -3,9 +3,8 @@
 1. Create a file with the name of the database object your endpoint needs to use. In this case: examples.py
 
 ```python
-from model import Example, db # import database object class 
-from model.examples import exampleSchema # import the schema
-from .exception import DataAccessLayerException # import the custom exception
+from ..model import Example, db, exampleSchema
+from .exception import DataAccessLayerException
 
 def getAllExamples():
 	examples = Example.query.all()

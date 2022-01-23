@@ -1,13 +1,18 @@
-from model import User, db
-from model.users import UserSchema
+from flask_login import current_user
+from sqlalchemy import and_
+
+from ..model import User, db, UserSchema
 from .exception import DataAccessLayerException
 
+
 def getAllUsers():
-	users = User.query.all()
+	users = User.query.filter(User.deleted == False).all()
 	return UserSchema().dump(users, many=True)
 
 def createUser(json):
 	user = UserSchema().load(json)
+	if User.query.filter(User.username == user.username).count() != 0:
+		raise DataAccessLayerException(400, 'Username already used')
 	if User.query.filter(User.email == user.email).count() != 0:
 		raise DataAccessLayerException(400, 'Email already used')
 	db.session.add(user)
@@ -24,17 +29,27 @@ def removeUser(user_id):
 	user = User.query.filter(User.id == user_id).one_or_none()
 	if user is None:
 		raise DataAccessLayerException(400, 'id not found')
-	json = UserSchema().dump(user)
-	db.session.delete(user)
+	user.deleted = True
+	for prop in user.owns:
+		prop.deleted = True
 	db.session.commit()
-	return json
+	return UserSchema().dump(user)
 
-def replaceUser(user_id, json):
-	new_user = UserSchema().load(json)
-	new_user.id = user_id
+def updateUser(user_id, json):
 	user = User.query.filter(User.id == user_id).one_or_none()
 	if user is None:
 		raise DataAccessLayerException(400, 'id not found')
-	user = new_user
+	
+	# Currently no one should be able to change their userType
+	buffer = json.get('username')
+	if buffer is not None:
+		user.username = buffer
+	buffer = json.get('password')
+	if buffer is not None:
+		user.password = buffer
+	buffer = json.get('email')
+	if buffer is not None:
+		user.email = buffer
+
 	db.session.commit()
 	return UserSchema().dump(user)

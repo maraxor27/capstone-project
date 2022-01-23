@@ -1,7 +1,7 @@
 Vue.component('myheader', {
 	data: function() {
 		return {
-			email: "",
+			username: "",
 			password: "",
 			user: {},
 			logged_in: false,
@@ -17,26 +17,26 @@ Vue.component('myheader', {
 		}, (error) => {})
 	},
 	methods: {
-		login(email, password) {
+		login(username, password) {
 			axios({
 				method: 'post',
 				url: '/login',
 				data: {
-					'email': email,
+					'username': username,
 					'password': password
 				}
 			}).then((response) => {
 				this.login_success(response)
 			}, (error) => {
 				console.log(error)
-				this.error_message = "Invalid email password combination"
+				this.error_message = "Invalid username password combination"
 			})
 		},
 		login_success(response) {
 				this.user = response.data
 				this.error_message = ""
 				this.logged_in = true
-				this.email = ""
+				this.username = ""
 				this.password = ""
 				this.$emit('user-update', this.user)
 		},
@@ -56,17 +56,17 @@ Vue.component('myheader', {
 	<div>
 		<b-navbar type="dark" variant="dark">
 			<b-navbar-nav>
-				<b-nav-item href="">Home</b-nav-item>
+				<b-nav-item href="/">Home</b-nav-item>
 			</b-navbar-nav>
 			<b-navbar-nav class="ml">
 				<b-nav-item-dropdown text="User" v-if="!logged_in" right>
 					<li class="no-wrap" style="min-width: 17rem; margin: 4px;">
 						<div class="input-group input-group-sm mb-3">
 							<div class="input-group-prepend" style="width:6rem;">
-								<span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+								<span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
 							</div>
 							<input type="text" class="form-control" 
-								v-model="email"
+								v-model="username"
 								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>
 					</li>
@@ -83,16 +83,15 @@ Vue.component('myheader', {
 					<li v-show="error_message != ''" style="color: red; margin-bottom: 1rem;">{{ error_message }}</li>
 					<li style="margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
-							v-on:click="login(email, password)">
+							v-on:click="login(username, password)">
 							connect
 						</button>
 					</li>
 				</b-nav-item-dropdown>
 				<b-nav-item-dropdown 
-						v-bind:text="user.email" 
+						v-bind:text="user.username" 
 						v-else right>
-					<b-dropdown-item href="">Account</b-dropdown-item>
-					<b-dropdown-item href="">Settings</b-dropdown-item>
+					<b-dropdown-item href="/account">Account</b-dropdown-item>
 					<li style="margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
 							v-on:click="logout()">

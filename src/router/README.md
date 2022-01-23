@@ -1,3 +1,5 @@
+# Before finishing the project, don't forget to lock down the api to logged in user and check for permission.
+
 # How to add an api endpoint
 
 1. Create a new namespace and routes for the endpoint in a new file (In this case, we would create examples.py)
@@ -6,8 +8,8 @@ from flask import Blueprint, request, abort
 from flask_restx import Namespace, Resource, fields
 
 #import db and the database classes used in this end point.
-from dataAccessLayer.examples import getAllExample, addExample
-from dataAccessLayer import DataAccessLayerException
+from ..dataAccessLayer import getAllExample, addExample, DataAccessLayerException
+
 
 exampleNamespace = Namespace("examples", path="/examples")
 
@@ -47,6 +49,7 @@ class Examples(Resource):
 ```python
 # import the namespace from the file created at step 1
 from .examples import exampleNamespace
+
 
 #this Blueprint will already be in the file 
 apiv2Blueprint = Blueprint("apiv2", __name__, url_prefix="/api/v2")

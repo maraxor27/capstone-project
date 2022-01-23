@@ -1,6 +1,11 @@
 # How to add a database table in this project
 
-1. Add db.Model at end of __init__.py of this directory
+1. import the schema into the __init__.py of this directory
+```python
+from .examples import ExampleSchema
+```
+
+2. Add db.Model at end of db.py of this directory
 ```python
 class Example(db.Model):
 	__tablename__ = "example"
@@ -11,15 +16,12 @@ class Example(db.Model):
 		return "string that represent the databse object"
 ```
 
-2. Create a new file named after the new class from step 1 (examples.py)
+3. Create a new file named after the new class from step 1 (examples.py)
 
 ```python
-from . import ma
-
-#import class added to __init__.py
-from . import Example
-
 from marshmallow import post_load
+from .db import ma, Example
+
 
 class ExampleSchema(ma.Schema):
 	class Meta:

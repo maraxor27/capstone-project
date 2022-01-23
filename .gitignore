@@ -2,3 +2,4 @@
 __pycache__/
 *.py[cod]
 /src/static/images/*
+.DS_Store

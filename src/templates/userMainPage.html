@@ -13,28 +13,7 @@
   </head>
 
   <!-- Put header title here -->
-  <title>DecoderApp</title>
+  <title>UserMainPage</title>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/static/js/header.js"></script>
-    <!-- line 1 to 20 in every page -->
-
-<!-- js component goes here -->
-    <div id="app">
-      <myheader @user-update="updateUser"></myheader>
-    </div>
-    
-    <script>
-      var app = new Vue({el: '#app',
-        data: {
-          user: {},
-        },
-        methods: {
-          updateUser(val) {
-            this.user = val
-          },
-        },
-      })
-    </script>
-  </body>
-</html>

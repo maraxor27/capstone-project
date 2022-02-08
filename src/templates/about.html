@@ -3,17 +3,28 @@
   <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="static/css/main.css">
-
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@4.5.3/dist/css/bootstrap.css" />
     <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
     <link type="text/css" rel="stulesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.css"/>
 
     <script src="//unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
     <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+      <!--  <div style="background-image: url('images/cpubackground.jpg');
+      background-size: cover; height:480px; padding-top:80px;
+      text-align:center;">
+    </div> -->
+
+    <style>
+  body {
+  background-image: url('static/images/cpubackground.jpg');
+  background-repeat: no-repeat;
+}
+</style>
   </head>
 
   <!-- Put header title here -->
-  <title>DecompilerApp</title>
+  <title>AboutThisProject</title>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/static/js/header.js"></script>
@@ -23,7 +34,7 @@
     <div id="app">
       <myheader @user-update="updateUser"></myheader>
     </div>
-    
+
     <script>
       var app = new Vue({el: '#app',
         data: {
@@ -36,5 +47,10 @@
         },
       })
     </script>
-  </body>
+
+    <div style="height:600px; margin:100px; text-align: justify; color: white;">
+      <h1>Hi There, </h1>
+      <p style="line-height: 2.0; font-size:20px; width: 63%">Écrire une belle description de notre projet ici :)</p>
+    </div>
+    </body>
 </html>

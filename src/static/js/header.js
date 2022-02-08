@@ -50,47 +50,71 @@ Vue.component('myheader', {
 				this.$emit('user-update', this.user)
 			})
 		},
+
 	},
+
+
+				
+//Display of the header
 	template:
 	`
 	<div>
 		<b-navbar type="dark" variant="dark">
-			<b-navbar-nav>
-				<b-nav-item href="/">Home</b-nav-item>
-			</b-navbar-nav>
+		
+		
+			<b-navbar-brand 
+			<a href="/" >
+			<button type="button" class="btn btn-dark" style="margin: auto; font-size: larger;">C DECOMPILER</button>
+			</a>
+
+			</b-navbar-brand>
+		
 			<b-navbar-nav class="ml">
+				<b-navbar-nav>
+				<a href="/about" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">About this Project</button>
+						</a>
+					<b-nav-item href="/">Terms of Use</b-nav-item>
+				</b-navbar-nav>
+
 				<b-nav-item-dropdown text="User" v-if="!logged_in" right>
 					<li class="no-wrap" style="min-width: 17rem; margin: 4px;">
 						<div class="input-group input-group-sm mb-3">
 							<div class="input-group-prepend" style="width:6rem;">
 								<span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
 							</div>
-							<input type="text" class="form-control" 
-								v-model="username"
-								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+						<input type="text" class="form-control" 
+						v-model="username"
+						aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>
 					</li>
+			
 					<li class="no-wrap" style="min-width: 17rem; margin: 4px;">
 						<div class="input-group input-group-sm mb-3">
 							<div class="input-group-prepend" style="width:6rem;">
 								<span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
 							</div>
 							<input type="password" class="form-control" 
-								v-model="password"
-								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+							v-model="password"
+							aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>
 					</li>
+					
 					<li v-show="error_message != ''" style="color: red; margin-bottom: 1rem;">{{ error_message }}</li>
+			
 					<li style="margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
-							v-on:click="login(username, password)">
-							connect
+							v-on:click="login(username, password)">Connect
 						</button>
+						<a href="/signUp" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">Sign Up</button>
+						</a>
 					</li>
 				</b-nav-item-dropdown>
+
 				<b-nav-item-dropdown 
-						v-bind:text="user.username" 
-						v-else right>
+					v-bind:text="user.username" 
+					v-else right>
 					<b-dropdown-item href="/account">Account</b-dropdown-item>
 					<li style="margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 

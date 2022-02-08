@@ -1,7 +1,6 @@
 /database-data
 __pycache__/
 *.pyc[cod]
-/src/static/images/*
 migrations/
 .DS_Store
 

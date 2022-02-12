@@ -1,0 +1,20 @@
+.ml {
+  margin-left: auto;
+}
+
+.dropdown-menu-right {
+  right: 0;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.inline-input {
+  display: inline;
+}
+
+body {
+  background-image: url("../images/cpubackground.jpg");
+  background-repeat: no-repeat;
+}

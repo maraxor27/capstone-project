@@ -17,7 +17,6 @@ def signUp():
 def about():
 	return send_from_directory("templates", "about.html")
 
-
 # TODO: this route should require login and only be available to ADMIN and AGENT
 @app.route("/userMain")
 def userMain():

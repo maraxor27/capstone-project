@@ -6,7 +6,7 @@ from .exception import DataAccessLayerException
 
 
 def getAllUsers():
-	users = User.query.filter(User.deleted == False).all()
+	users = User.query.all()
 	return UserSchema().dump(users, many=True)
 
 def createUser(json):
@@ -28,8 +28,6 @@ def removeUser(user_email):
 	if user is None:
 		raise DataAccessLayerException(400, 'User not found')
 	user.deleted = True
-	for prop in user.owns:
-		prop.deleted = True
 	db.session.commit()
 	return UserSchema().dump(user)
 
@@ -42,9 +40,11 @@ def updateUser(user_email, json):
 	buffer = json.get('password')
 	if buffer is not None:
 		user.password = buffer
-	buffer = json.get('email')
-	if buffer is not None:
-		user.email = buffer
-
+	# buffer = json.get('firstname')
+	# if buffer is not None:
+	# 	user.firstname = buffer
+	# buffer = json.get('lastname')
+	# if buffer is not None:
+	# 	user.lastname = buffer
 	db.session.commit()
 	return UserSchema().dump(user)

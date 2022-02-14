@@ -9,6 +9,8 @@ from ..dataAccessLayer import getAllUsers, createUser, getUser, \
 userNamespace = Namespace("users", path="/users")
 
 userParser = userNamespace.model('User', {
+		"firstname": fields.String(default="firstname", required=True),
+		"lastname": fields.String(default="lastname", required=True),
 		"email": fields.String(default="firstname.lastname@email.com", required=True),
 		"password": fields.String(default="password123", required=True, 
 			description="Will eventually be the hashed password"),
@@ -38,7 +40,7 @@ class Users(Resource):
 
 @userNamespace.route("/<string:email>")
 @userNamespace.doc(params={"email":"An email",}, description="Email of a User")
-class UserID(Resource):
+class UserEmail(Resource):
 	@userNamespace.response(200, 'Success')
 	@userNamespace.response(400, 'Invalid request')
 	@userNamespace.doc(description="This api endpoint returns the information for a specific user")

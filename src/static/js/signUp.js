@@ -3,6 +3,8 @@ Vue.component('signup', {
 	data: function() {
 		return {
 			form: {
+				firstname: "",
+				lastname:"",
 				email: "",
 				password: "",
 			},
@@ -18,6 +20,8 @@ Vue.component('signup', {
 				method: 'post',
 				url:'/api/v2/users/',
 				data: {
+					firstname: this.form.firstname,
+					lastname: this.form.lastname,
 					email: this.form.email,
 					password: this.form.password,
 				},
@@ -34,6 +38,16 @@ Vue.component('signup', {
 		resetForm(event) {},
 	},
 	computed: {
+		firstnameValidation() {
+			if (this.form.firstname.length == 0)
+				return null
+			return /^([a-z]|[A-Z]|[- ]){1,100}$/gm.test(this.form.firstname)
+		},
+		lastnameValidation() {
+			if (this.form.lastname.length == 0)
+				return null
+			return /^([a-z]|[A-Z]|[-]){1,100}$/gm.test(this.form.lastname)
+		},
 		emailValidation() {
 			if (this.form.email.length == 0)
 				return null
@@ -73,13 +87,46 @@ Vue.component('signup', {
 			<p>Please fill in this form to create an account.</p>
 
 			<hr>
-			<label for="email"><b>Email</b></label>
+			<label for="firstname"><b>First Name</b></label>
 			<b-form-group id="input-group-1" label-for="input-1">
 				<b-form-input
 					id="input-1"
+					v-model="form.firstname"
+					placeholder="Enter first name"
+					size="lg"
+					required
+				></b-form-input>
+				<b-form-invalid-feedback :state="firstnameValidation">
+					Your first name must be 1-100 letters long
+				</b-form-invalid-feedback>
+				<b-form-valid-feedback :state="firstnameValidation">
+					All good!
+				</b-form-valid-feedback>
+			</b-form-group>
+
+			<label for="lastname"><b>Last Name</b></label>
+			<b-form-group id="input-group-2"  label-for="input-2">
+				<b-form-input
+					id="input-2"
+					v-model="form.lastname"
+					placeholder="Enter last name"
+					size="lg"
+					required
+				></b-form-input>
+				<b-form-invalid-feedback :state="lastnameValidation">
+					Your last name must be 1-100 letters long
+				</b-form-invalid-feedback>
+				<b-form-valid-feedback :state="lastnameValidation">
+					All good!
+				</b-form-valid-feedback>
+			</b-form-group>
+
+			<label for="email"><b>Email</b></label>
+			<b-form-group id="input-group-3" label-for="input-3">
+				<b-form-input
+					id="input-3"
 					v-model="form.email"
 					placeholder="Enter Email"
-					type="email"
 					size="lg"
 					required
 				></b-form-input>
@@ -92,9 +139,9 @@ Vue.component('signup', {
 			</b-form-group>
 
     		<label for="psw"><b>Password</b></label>
-    		<b-form-group id="input-group-2" label-for="input-2">
+    		<b-form-group id="input-group-4" label-for="input-4">
 				<b-form-input
-					id="input-2"
+					id="input-4"
 					v-model="form.password"
 					placeholder="Enter Password"
 					type="password"
@@ -111,9 +158,9 @@ Vue.component('signup', {
 			</b-form-group>
 
     		<label for="psw-repeat"><b>Repeat Password</b></label>
-    		<b-form-group id="input-group-3" label-for="input-3">
+    		<b-form-group id="input-group-5" label-for="input-5">
 				<b-form-input
-					id="input-3"
+					id="input-5"
 					v-model="passwordConfirmation"
 					placeholder="Repeat Password"
 					type="password"
@@ -128,7 +175,7 @@ Vue.component('signup', {
 				</b-form-valid-feedback>
 			</b-form-group>
 			<hr>
-			<p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+			<p>By creating an account you agree to our <a href="#">Terms of Use</a>.</p>
 			<b-button variant="primary" @click="signUp">Submit</b-button>
 			<b-button type="reset" variant="danger">Reset</b-button>
 		</b-form>
@@ -142,9 +189,6 @@ Vue.component('signup', {
 				{{ errorMessage }}
 			</div>
  		 </div>
- 		 <div class="container signin">
-    		<p>Already have an account? <a href="#">Sign in</a>.</p>
- 		</div>
 	</div>
 	`
 })

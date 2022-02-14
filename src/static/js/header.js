@@ -1,6 +1,8 @@
 Vue.component('myheader', {
 	data: function() {
 		return {
+			firstname:"",
+			lastname:"",
 			email: "",
 			password: "",
 			user: {},
@@ -113,14 +115,18 @@ Vue.component('myheader', {
 				</b-nav-item-dropdown>
 
 				<b-nav-item-dropdown 
-					v-bind:text="user.email" 
+					v-bind:text="user.firstname" 
 					
 					v-else right>
 					<b-dropdown-item href="/account">Account</b-dropdown-item>
-					<li style="margin: 4px;">
+					<li class="no-wrap" style="min-width: 10rem; margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
 							v-on:click="logout()">
-							logout
+							Logout
+						</button>
+						<a href="/accountSettings" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">Account Setting</button>
+						</a>
 						</button>
 					</li>
 				</b-nav-item-dropdown>

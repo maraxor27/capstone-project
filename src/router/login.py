@@ -22,9 +22,9 @@ def login():
 		return UserSchema().dump(current_user)
 	if request is None or request.json is None:
 		return abort(400, "Empty request")
-	if request.json.get('username') is None or request.json.get('password') is None:
-		return abort(400, "username or password is missing")
-	user = User.query.filter(and_(User.username==request.json['username'],
+	if request.json.get('email') is None or request.json.get('password') is None:
+		return abort(400, "email or password is missing")
+	user = User.query.filter(and_(User.email==request.json['email'],
 		User.password==request.json['password'])).one_or_none()
 	if user is None:
 		return abort(400, "User with matching credential not found")

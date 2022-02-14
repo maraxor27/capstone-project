@@ -4,12 +4,11 @@ from .db import ma, User
 class UserSchema(ma.Schema):
 	class Meta:
 		model = User
-		fields = ("id", "username", "password", 
+		fields = ("password", 
 			"email", "created", "_links")
 
 	_links = ma.Hyperlinks({
-			"self": ma.URLFor("apiv2.users_user_id", values=dict(id="<id>")),
-			"collection": ma.URLFor("apiv2.users_users"),
+			"collection": ma.URLFor("apiv2.users_users")
 		})
 
 

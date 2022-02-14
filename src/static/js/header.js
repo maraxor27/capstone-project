@@ -1,7 +1,7 @@
 Vue.component('myheader', {
 	data: function() {
 		return {
-			username: "",
+			email: "",
 			password: "",
 			user: {},
 			logged_in: false,
@@ -17,26 +17,26 @@ Vue.component('myheader', {
 		}, (error) => {})
 	},
 	methods: {
-		login(username, password) {
+		login(email, password) {
 			axios({
 				method: 'post',
 				url: '/login',
 				data: {
-					'username': username,
+					'email': email,
 					'password': password
 				}
 			}).then((response) => {
 				this.login_success(response)
 			}, (error) => {
 				console.log(error)
-				this.error_message = "Invalid username password combination"
+				this.error_message = "Invalid email password combination"
 			})
 		},
 		login_success(response) {
 				this.user = response.data
 				this.error_message = ""
 				this.logged_in = true
-				this.username = ""
+				this.email = ""
 				this.password = ""
 				this.$emit('user-update', this.user)
 		},
@@ -81,10 +81,10 @@ Vue.component('myheader', {
 					<li class="no-wrap" style="min-width: 17rem; margin: 4px;">
 						<div class="input-group input-group-sm mb-3">
 							<div class="input-group-prepend" style="width:6rem;">
-								<span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
+								<span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
 							</div>
 						<input type="text" class="form-control" 
-						v-model="username"
+						v-model="email"
 						aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>
 					</li>
@@ -104,7 +104,7 @@ Vue.component('myheader', {
 			
 					<li style="margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
-							v-on:click="login(username, password)">Connect
+							v-on:click="login(email, password)">Connect
 						</button>
 						<a href="/signUp" >
 						<button type="button" class="btn btn-dark" style="margin: auto;">Sign Up</button>
@@ -113,7 +113,8 @@ Vue.component('myheader', {
 				</b-nav-item-dropdown>
 
 				<b-nav-item-dropdown 
-					v-bind:text="user.username" 
+					v-bind:text="user.email" 
+					
 					v-else right>
 					<b-dropdown-item href="/account">Account</b-dropdown-item>
 					<li style="margin: 4px;">

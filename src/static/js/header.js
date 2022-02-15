@@ -40,6 +40,7 @@ Vue.component('myheader', {
 				this.logged_in = true
 				this.email = ""
 				this.password = ""
+				console.log(this.user._links.self)
 				this.$emit('user-update', this.user)
 		},
 		logout() {

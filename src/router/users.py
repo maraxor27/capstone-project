@@ -38,6 +38,13 @@ class Users(Resource):
 		except DataAccessLayerException as e:
 			abort(e.code, e.message)
 
+newPasswordParser = userNamespace.model('NewPassword', {
+		"password": fields.String(default="password123", required=True, 
+			description="Will eventually be the hashed password"),
+		"oldPassword": fields.String(default="password123", required=True, 
+			description="Will eventually be the hashed password"),
+	})
+
 @userNamespace.route("/<string:email>")
 @userNamespace.doc(params={"email":"An email",}, description="Email of a User")
 class UserEmail(Resource):
@@ -60,7 +67,7 @@ class UserEmail(Resource):
 
 	@userNamespace.response(200, 'Success')
 	@userNamespace.response(400, 'Invalid request')
-	@userNamespace.expect(userParser)
+	@userNamespace.expect(newPasswordParser)
 	def put(self, email):
 		try:
 			return updateUser(email, request.json)

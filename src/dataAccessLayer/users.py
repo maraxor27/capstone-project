@@ -36,15 +36,12 @@ def updateUser(user_email, json):
 	if user is None:
 		raise DataAccessLayerException(400, 'User not found')
 	
+	if user.password != json.get('oldPassword'):
+		raise DataAccessLayerException(400, 'old password doesn\'t match')
+
 	# Currently no one should be able to change their userType
 	buffer = json.get('password')
 	if buffer is not None:
 		user.password = buffer
-	# buffer = json.get('firstname')
-	# if buffer is not None:
-	# 	user.firstname = buffer
-	# buffer = json.get('lastname')
-	# if buffer is not None:
-	# 	user.lastname = buffer
 	db.session.commit()
 	return UserSchema().dump(user)

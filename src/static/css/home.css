@@ -22,8 +22,8 @@ pre {
   background: transparent;
   font: 400 13px/16px helvetica, arial, sans-serif;
   /* Make the text soft-wrap */
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  /*white-space: pre-wrap;*/
+  /*word-wrap: break-word;*/
 }
 
 .expandingArea > textarea {
@@ -35,7 +35,7 @@ pre {
      -moz-box-sizing: border-box;
       -ms-box-sizing: border-box;
           box-sizing: border-box;
-  font-size:large;
+  font-size:small;
   width: 100%;
   /* This height is used when JS is disabled */
   height: 400px;

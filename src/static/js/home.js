@@ -32,17 +32,15 @@ Vue.component('home', {
 	template:
 	`
 	<div> 
-	<div class="bg-light" style = "padding: 20px 0px 20px 0px ">
-		<div style = "text-align:left; margin: auto; width: 50%;">
-			<h4 style = "text-align:center; padding-top: 20px">How to use this tool:</h4><br>
+		<div class="bg-light" style = "padding: 20px 0px 20px 0px ">
+			<div style = "text-align:left; margin: auto; width: 50%;">
+				<h4 style = "text-align:center; padding-top: 20px">How to use this tool:</h4><br>
 
-			1. Enter some assembly code you wish to convert to C in the left text area<br>
-			2. Press the « Decompile For Me » button<br>
-			3. You will see the converted code displayed in the right text area<br>
-			4. Enter other stuff here blah blah<br>
-			5. Blah blah
+				1. Enter some assembly code you wish to convert to C in the left text area<br>
+				2. Press the « Decompile For Me » button<br>
+				3. You will see the converted code displayed in the right text area<br>
+			</div>
 		</div>
-	</div>
 		<ul class="sideBySide" >
 			<li>
 				<!-- Input Text box for assembly -->
@@ -61,12 +59,34 @@ Vue.component('home', {
 			</li>
 		</ul>
 
-		<div style = "text-align: right; margin-right: 90px">
-		<b-button variant="primary">Decompile For Me</b-button>
+		<div style = "text-align: right; margin-right: 90px; margin-bottom: 20px;">
+			<b-button variant="primary">Decompile For Me</b-button>
+		</div>
 
+		<div class="bg-light" style = "padding: 20px 0px 20px 0px ">
+			<div style = "text-align:left; margin: auto; width: 50%;">
+				<h4 style = "text-align:center; padding-top: 20px">Examples:</h4>
+				<h6 style = "text-align:center;" class="text-muted">Press the buttons corresponding to the example then press the Decompile For Me button <br></h6>
+			</div>
+
+			<ul class="sideBySide" >
+				<li>
+					<b-button variant="primary">Do While</b-button>
+				</li>
+				<li>
+					<b-button variant="primary">Print</b-button>
+				</li>
+
+				<li>
+					<b-button variant="primary">If Statement</b-button>
+				</li>
+				<li>
+					<b-button variant="primary">For Loop</b-button>
+				</li>
+				
+			</ul>
 		</div>
 
 	</div>
 			`
 })
-

@@ -4,4 +4,6 @@ RUN apt-get install postgresql-client -y
 RUN apt install libpq-dev  
 COPY ./requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+COPY ./src/decompiler/requirements.txt ./src/decompiler/requirements.txt
+RUN pip install --no-cache-dir -r ./src/decompiler/requirements.txt
 WORKDIR /myapp

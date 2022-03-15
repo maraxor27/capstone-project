@@ -1,12 +1,12 @@
 Vue.component('home', {
 	data: function() {
 		return {
-			assembCode: "",
+			assemblyCode: "",
 			cCode:"",
 		}
 	}, 
 
-	method:{
+	methods: {
 		makeExpandingArea(container) {
 			var area = container.querySelector('textarea');
 			var span = container.querySelector('span');
@@ -17,18 +17,34 @@ Vue.component('home', {
 				span.textContent = area.value;
 			} else if (area.attachEvent) {
 
-			// IE8 compatibility
-			area.attachEvent('onpropertychange', function() {
+				// IE8 compatibility
+				area.attachEvent('onpropertychange', function() {
+					span.innerText = area.value;
+				});
 				span.innerText = area.value;
-			});
-			span.innerText = area.value;
+			}
+			// Enable extra CSS
+			container.className += "active";
+		},
+		decompile() {
+			axios({
+				method: 'POST',
+				url: '/api/v2/decompiler',
+				data: {
+					'assembly': this.assemblyCode,
+					'arch':"68HC12",
+					/* arch is there if the application 
+					supports many arch in the future*/
+				}
+			}).then((response) => {
+				this.cCode = response.data.cCode
+			},(error) => {
+				console.log(error)
+			})
 		}
-		// Enable extra CSS
-		container.className += "active";
 	},
-},
 				
-//Display of the home page
+	//Display of the home page
 	template:
 	`
 	<div> 
@@ -46,7 +62,7 @@ Vue.component('home', {
 				<!-- Input Text box for assembly -->
 				<div class="expandingArea">
 					<pre><span></span><br></pre>
-					<textarea placeholder="Enter Assembly Here" v-model = "assembCode">
+					<textarea placeholder="Enter Assembly Here" v-model="assemblyCode">
 					</textarea>
 				</div>
 			</li>
@@ -59,8 +75,9 @@ Vue.component('home', {
 			</li>
 		</ul>
 
+
 		<div style = "text-align: right; margin-right: 90px; margin-bottom: 20px;">
-			<b-button variant="primary">Decompile For Me</b-button>
+			<b-button variant="primary" @click="decompile()>Decompile For Me</b-button>
 		</div>
 
 		<div class="bg-light" style = "padding: 20px 0px 20px 0px ">
@@ -88,5 +105,5 @@ Vue.component('home', {
 		</div>
 
 	</div>
-			`
+	`
 })

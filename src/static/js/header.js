@@ -77,7 +77,7 @@ Vue.component('myheader', {
 				<a href="/about" >
 						<button type="button" class="btn btn-dark" style="margin: auto;">About this Project</button>
 						</a>
-					<b-nav-item href="/">Terms of Use</b-nav-item>
+					<b-nav-item href="/terms">Terms of Use</b-nav-item>
 				</b-navbar-nav>
 
 				<b-nav-item-dropdown text="User" v-if="!logged_in" right>

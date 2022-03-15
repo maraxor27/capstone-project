@@ -17,14 +17,11 @@ def signUp():
 def about():
 	return send_from_directory("templates", "about.html")
 
-# TODO: this route should require login and only be available to ADMIN and AGENT
 @app.route("/userMain")
 def userMain():
 	return send_from_directory("templates", "userMain.html")
 
-	
-# TODO: this route should only be accessible by user and owner
-# @app.route("/property/<int:id>")
-# def propertyView(id):
-# 	return send_from_directory("templates", "viewProperty.html")
+@app.route("/terms")
+def terms():
+	return send_from_directory("templates", "terms.html")
 

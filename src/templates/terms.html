@@ -1,0 +1,187 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="static/css/about.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/bootstrap@4.5.3/dist/css/bootstrap.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+    />
+    <link
+      type="text/css"
+      rel="stulesheet"
+      href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.css"
+    />
+
+    <script src="//unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+  </head>
+
+  <!-- Put header title here -->
+  <title>About This Project</title>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/static/js/header.js"></script>
+    <!-- line 1 to 20 in every page -->
+
+    <!-- js component goes here -->
+    <div id="app">
+      <myheader @user-update="updateUser"></myheader>
+    </div>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          user: {},
+        },
+        methods: {
+          updateUser(val) {
+            this.user = val;
+          },
+        },
+      });
+    </script>
+
+    <div style="height: auto; margin: 100px; text-align: center; color: black">
+      <h1>Terms and Conditions</h1>
+      <p
+        style="line-height: 2; font-size: 20px; width: auto; text-align: center"
+      >
+        You agree to respect all the following terms upon usage of the
+        decompiler
+      </p>
+    </div>
+
+    <!-- Top -->
+    <section id="top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Recap</h2>
+            <h3 class="section-subheading text-muted">
+              Summary of the paragraphs below
+            </h3>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">Who?</h4>
+            <p class="text-muted">
+              Anyone and everyone can use the decompiler service as long as they
+              respect the terms.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">How?</h4>
+            <p class="text-muted">
+              You can only use the decompiler program to exlusively decompile
+              public and open source code.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">For?</h4>
+            <p class="text-muted">
+              The decompiled code can be used anywhere for any reason as long as
+              it does not break any copyright or other criminal law.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Terms</h2>
+            <h3 class="section-subheading text-muted">5 min read.</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-left">
+            <h4 class="">
+              Copyright © 2022 C Decompiler
+              <br /><br />
+              Permission is hereby granted, free of charge, to any person
+              obtaining a copy of this software and associated documentation
+              files (the “Software”), to deal in the Software without
+              restriction, including without limitation the rights to use, copy,
+              modify, merge, publish, distribute, sublicense, and/or sell copies
+              of the Software, and to permit persons to whom the Software is
+              furnished to do so, subject to the following conditions:
+              <br /><br />
+              The above copyright notice and this permission notice shall be
+              included in all copies or substantial portions of the Software.
+              <br /><br />
+              THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
+              EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+              MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+              NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+              HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+              WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+              OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+              DEALINGS IN THE SOFTWARE.
+              <br /><br />
+              Everyone and anyone without discrimination is able to use the
+              Software, with exceptions that include those (with liability to
+              the user) who intend to use the Software to deal in illegal
+              activities such as:
+              <br />
+              <ul>
+                <li>Decompilation of proprietary software</li>
+                <li>
+                  Use of decompiled code for illegal purposes such as hacking
+                </li>
+                <li>
+                  Any other reason that can or might break any copyright or
+                  criminal code in the country of use, or infringe on
+                  intellectual property that is protected under law.
+                </li>
+              </ul>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="copyright">Copyright &copy; Capstone 2022</span>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-inline quicklinks">
+              <li class="list-inline-item">
+                <a href="#">Legal</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -74,10 +74,12 @@ Vue.component('myheader', {
 		
 			<b-navbar-nav class="ml">
 				<b-navbar-nav>
-				<a href="/about" >
+					<a href="/about" >
 						<button type="button" class="btn btn-dark" style="margin: auto;">About this Project</button>
-						</a>
-					<b-nav-item href="/terms">Terms of Use</b-nav-item>
+					</a>
+					<a href="/terms" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">Terms of Use</button>
+					</a>
 				</b-navbar-nav>
 
 				<b-nav-item-dropdown text="User" v-if="!logged_in" right>

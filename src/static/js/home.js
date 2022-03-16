@@ -46,13 +46,18 @@ Vue.component('home', {
 			this.cCode = ""
 			this.assemblyCode = ""
 
-		}
+		},
+		highlighter(cCode) {
+      // js highlight example
+      return Prism.highlight(cCode, Prism.languages.clike, "c");
+    }
+
 	},
 				
 	//Display of the home page
 	template:
 	`
-	<div> 
+	<div style="background-color: #f8f9fa"> 
 		<div class="bg-light" style = "padding: 20px 0px 20px 0px ">
 			<div style = "text-align:left; margin: auto; width: 50%;">
 				<h4 style = "text-align:center; padding-top: 20px">How to use this tool:</h4><br>
@@ -62,24 +67,21 @@ Vue.component('home', {
 				3. You will see the converted code displayed in the right text area<br>
 			</div>
 		</div>
-		<ul class="sideBySide" >
-			<li>
-				<!-- Input Text box for assembly -->
-				<div class="expandingArea">
-					<pre><span></span><br></pre>
-					<textarea placeholder="Enter Assembly Here" v-model="assemblyCode">
-					</textarea>
-				</div>
-			</li>
-
-			<li>
-				<div class="expandingArea">
-					<pre><span></span><br></pre>
-					<textarea placeholder="Your decompiled code will show up here" v-model="cCode "></textarea>
-				</div>
-			</li>
-		</ul>
-
+		
+		<table style="margin: auto; width: 90%">
+			<tr>
+				<th class="codeTableHeader" style="width: 49%">
+					<div class="expandingArea">
+						<pre><span></span><br></pre>
+						<textarea placeholder="Enter Assembly Here" v-model="assemblyCode" style="resize: none !important">
+						</textarea>
+					</div>
+				</th>
+				<th class="codeTableHeader" style="width: 49%; height: 505px; vertical-align: top;">	
+					<prism-editor class="my-editor" v-model="cCode" :highlight="highlighter" line-numbers></prism-editor>
+				</th>
+			</tr>
+		</table>
 
 		<div style = "text-align: right; margin-right: 90px; margin-bottom: 20px;">
 			<b-button variant="primary" @click="decompile()">Decompile For Me</b-button>
@@ -118,3 +120,23 @@ Vue.component('home', {
 	</div>
 	`
 })
+
+
+
+
+		
+
+		// <ul class="sideBySide" >
+		// 	<li>
+		// 		<!-- Input Text box for assembly -->
+		// 		<div class="expandingArea">
+		// 			<pre><span></span><br></pre>
+		// 			<textarea placeholder="Enter Assembly Here" v-model="assemblyCode">
+		// 			</textarea>
+		// 		</div>
+		// 	</li>
+
+		// 	<li>
+		// 		<prism-editor class="my-editor height-200" v-model="cCode" :highlight="highlighter" line-numbers></prism-editor>
+		// 	</li>
+		// </ul>

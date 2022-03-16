@@ -83,7 +83,7 @@ Vue.component('home', {
 			</tr>
 		</table>
 
-		<div style = "text-align: right; margin-right: 90px; margin-bottom: 20px;">
+		<div style = "text-align: right; margin: 30px auto; width: 210px;">
 			<b-button variant="primary" @click="decompile()">Decompile For Me</b-button>
 			<b-button variant="danger" @click="clear()">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

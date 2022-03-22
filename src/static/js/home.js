@@ -26,6 +26,48 @@ Vue.component('home', {
 			// Enable extra CSS
 			container.className += "active";
 		},
+		fileInput(){
+			this.clear()
+			
+		},
+		doWhile(){
+			this.clear() // clear inputs first
+			this.assemblyCode = 
+			`BIN_TEST EQU %00010101
+OCTAL_TEST EQU @40
+HEXA_TEST EQU $42
+INT_TEST EQU 56
+			
+global_char_arr DS.B 20
+global_const_char_arr DC.B 'this is a test'
+			
+; Stack
+OFFSET 0
+F_X DS.W 1  	; save X
+F_Y DS.W 1  	; save Y
+F_RA DS.W 1 	; return address
+F_SRC DS.W 1    ; short int *src
+F_DST DS.W 1    ; short int *dst
+F_SIZE DS.B 1   ; char size
+			
+memcopy:
+	pshy
+	pshx
+	ldx F_SRC, SP
+	ldy F_DST, SP
+	ldab #0
+loop:
+	movw 0,x , 0,y
+	inx
+	iny
+	incb
+	cmpb F_SIZE, SP
+	blo loop
+endloop:
+	pulx
+	puly
+	rts`
+		},
 		decompile() {
 			axios({
 				method: 'POST',
@@ -61,11 +103,50 @@ Vue.component('home', {
 		<div class="bg-light" style = "padding: 20px 0px 20px 0px ">
 			<div style = "text-align:left; margin: auto; width: 50%;">
 				<h4 style = "text-align:center; padding-top: 20px">How to use this tool:</h4><br>
-
+			<!--
 				1. Enter some assembly code you wish to convert to C in the left text area<br>
 				2. Press the « Decompile For Me » button<br>
 				3. You will see the converted code displayed in the right text area<br>
+			-->
 			</div>
+
+
+      		<div class="container">
+				<div class="row text-center" style="text-align: center;">
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x">
+							<i class="fas fa-circle fa-stack-2x text-primary"></i>
+							<i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+						</span>
+						<h4 class="service-heading">1.</h4>
+						<p class="text-muted">
+						Enter some assembly code you wish to convert to C in the left text area
+						</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x">
+							<i class="fas fa-circle fa-stack-2x text-primary"></i>
+							<i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+						</span>
+						<h4 class="service-heading">2.</h4>
+						<p class="text-muted">
+						Press the « Decompile For Me » button
+						</p>
+					</div>
+					<div class="col-md-4">
+						<span class="fa-stack fa-4x">
+							<i class="fas fa-circle fa-stack-2x text-primary"></i>
+							<i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+						</span>
+						<h4 class="service-heading">3.</h4>
+						<p class="text-muted">
+						You will see the converted code displayed in the right text area
+						</p>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
 		
 		<table style="margin: auto; width: 90%">
@@ -73,7 +154,7 @@ Vue.component('home', {
 				<th class="codeTableHeader" style="width: 49%">
 					<div class="expandingArea">
 						<pre><span></span><br></pre>
-						<textarea placeholder="Enter Assembly Here" v-model="assemblyCode" style="resize: none !important">
+						<textarea placeholder="Enter Assembly Here" v-model="assemblyCode" style="resize: none !important" class="fileContent">
 						</textarea>
 					</div>
 				</th>
@@ -84,6 +165,7 @@ Vue.component('home', {
 		</table>
 
 		<div style = "text-align: right; margin: 30px auto; width: 210px;">
+			<input type="file" style="text-align: center; margin-bottom: 5px;" onchange="fileInput()"/>
 			<b-button variant="primary" @click="decompile()">Decompile For Me</b-button>
 			<b-button variant="danger" @click="clear()">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -99,22 +181,12 @@ Vue.component('home', {
 				<h6 style = "text-align:center;" class="text-muted">Press the buttons corresponding to the example then press the Decompile For Me button <br></h6>
 			</div>
 
-			<ul class="sideBySide" >
-				<li>
-					<b-button variant="primary">Do While</b-button>
-				</li>
-				<li>
-					<b-button variant="primary">Print</b-button>
-				</li>
-
-				<li>
-					<b-button variant="primary">If Statement</b-button>
-				</li>
-				<li>
-					<b-button variant="primary">For Loop</b-button>
-				</li>
-				
-			</ul>
+			<div style="text-align: center;">
+					<b-button variant="primary" @click="doWhile()">Do While</b-button>
+					<b-button variant="primary" @click="doWhile()">Print</b-button>
+					<b-button variant="primary" @click="doWhile()">If Statement</b-button>
+					<b-button variant="primary" @click="doWhile()">For Loop</b-button>		
+			</div>
 		</div>
 
 	</div>

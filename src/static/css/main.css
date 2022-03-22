@@ -1,17 +1,15 @@
 .ml {
-	margin-left: auto;
+  margin-left: auto;
 }
 
 .dropdown-menu-right {
-	right: 0;
+  right: 0;
 }
 
 .no-wrap {
-	white-space: nowrap;
+  white-space: nowrap;
 }
 
 .inline-input {
-	display: inline;
+  display: inline;
 }
-
-

@@ -68,6 +68,39 @@ endloop:
 	puly
 	rts`
 		},
+		forLoop(){
+			this.clear() // clear inputs first
+			this.assemblyCode = 
+			`N equ 20 ; array count
+
+OFFSET 0
+p_ra ds.w 1 ; return address
+sum ds.w 1 ; array sum
+i ds.b 1 ; array index
+
+program:
+	ldaa #0
+	staa i
+	staa sum
+	staa sum+1
+	ldaa sum+1
+loop: 
+	ldab i
+	cmpb #N
+	beq done
+	ldx #array
+	leax b,x; abx
+	ldab 0,x
+	ldy sum
+	leay b,y; aby
+	sty sum
+	inc i
+	bra loop
+done: 
+	swi 	
+
+array dc.b 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20`
+		},
 		decompile() {
 			axios({
 				method: 'POST',
@@ -154,7 +187,7 @@ endloop:
 				<th class="codeTableHeader" style="width: 49%">
 					<div class="expandingArea">
 						<pre><span></span><br></pre>
-						<textarea placeholder="Enter Assembly Here" v-model="assemblyCode" style="resize: none !important" class="fileContent">
+						<textarea id="content-target" placeholder="Enter Assembly Here" v-model="assemblyCode" style="resize: none !important" class="fileContent">
 						</textarea>
 					</div>
 				</th>
@@ -165,7 +198,10 @@ endloop:
 		</table>
 
 		<div style = "text-align: right; margin: 30px auto; width: 210px;">
-			<input type="file" style="text-align: center; margin-bottom: 5px;" onchange="fileInput()"/>
+			<div>
+				<input type="file" id="input-file" style="text-align: center; margin-bottom: 5px;" onchange="fileInput()" accept=".asm, .inc"/>
+			</div>
+			
 			<b-button variant="primary" @click="decompile()">Decompile For Me</b-button>
 			<b-button variant="danger" @click="clear()">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -183,9 +219,7 @@ endloop:
 
 			<div style="text-align: center;">
 					<b-button variant="primary" @click="doWhile()">Do While</b-button>
-					<b-button variant="primary" @click="doWhile()">Print</b-button>
-					<b-button variant="primary" @click="doWhile()">If Statement</b-button>
-					<b-button variant="primary" @click="doWhile()">For Loop</b-button>		
+					<b-button variant="primary" @click="forLoop()">For Loop</b-button>		
 			</div>
 		</div>
 

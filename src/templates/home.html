@@ -74,7 +74,7 @@
     <!-- js component goes here -->
     <div id="app">
       <myheader @user-update="updateUser"></myheader>
-      <home></home>
+      <home :newAssembly="temp"></home>
 
       <!-- Footer -->
       <footer>
@@ -101,6 +101,7 @@
         data: {
           user: {},
           code: "",
+          temp: null,
         },
         methods: {
           updateUser(val) {
@@ -110,6 +111,9 @@
             // js highlight example
             return Prism.highlight(code, Prism.languages.clike, "c");
           },
+          updateTemp(value) {
+            this.temp = value
+          }
         },
       });
     </script>
@@ -120,15 +124,24 @@
         document.forms.form1.area.value = text;
       }
 
-      document.getElementById("input-file").addEventListener("change", getFile);
+      // document.getElementById("input-file").addEventListener("change", getFile);
 
       function getFile(event) {
         const input = event.target;
         if ("files" in input && input.files.length > 0) {
-          placeFileContent(
-            document.getElementById("content-target"),
-            input.files[0]
-          );
+          // placeFileContent(
+          //   document.getElementById("content-target"),
+          //   input.files[0]
+          // );
+          var files = input.files
+          var reader = new FileReader();
+          reader.onload = function(event) {
+            // console.log("file: content:", event.target.result)
+            console.log(app)
+            app._data.temp = event.target.result
+          }
+          reader.readAsText(files[0])
+          console.log()
         }
       }
 

@@ -1,12 +1,37 @@
 Vue.component('home', {
+	props: ["newAssembly"],
 	data: function() {
 		return {
 			assemblyCode: "",
 			cCode:"",
 		}
 	}, 
-
+	watch: {
+		newAssembly(newAsm, old) {
+			this.assemblyCode = newAsm
+		}
+	},
+	mounted: function() {
+		document.getElementById("input-file").addEventListener("change", this.getFile);
+	},
 	methods: {
+		getFile(event) {
+		const input = event.target;
+			if ("files" in input && input.files.length > 0) {
+				// placeFileContent(
+				//   document.getElementById("content-target"),
+				//   input.files[0]
+				// );
+				var files = input.files
+				var reader = new FileReader();
+				reader.myContext = this
+				reader.onload = function(event) {
+					// console.log("file: content:", event.target.result)
+					this.myContext.assemblyCode = event.target.result
+				}
+				reader.readAsText(files[0])
+			}
+		},
 		makeExpandingArea(container) {
 			var area = container.querySelector('textarea');
 			var span = container.querySelector('span');
@@ -28,7 +53,6 @@ Vue.component('home', {
 		},
 		fileInput(){
 			this.clear()
-			
 		},
 		doWhile(){
 			this.clear() // clear inputs first
@@ -199,7 +223,7 @@ array dc.b 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20`
 
 		<div style = "text-align: right; margin: 30px auto; width: 210px;">
 			<div>
-				<input type="file" id="input-file" style="text-align: center; margin-bottom: 5px;" onchange="fileInput()" accept=".asm, .inc"/>
+				<input type="file" id="input-file" style="text-align: center; margin-bottom: 5px;" @onchange="fileInput" accept=".asm, .inc"/>
 			</div>
 			
 			<b-button variant="primary" @click="decompile()">Decompile For Me</b-button>

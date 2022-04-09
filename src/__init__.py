@@ -29,19 +29,19 @@ def create_flask_app():
 	app.secret_key = os.urandom(24)
 	
 	@loginManager.user_loader
-	def load_user(user_id):
-		user = User.query.filter(User.id==user_id).one_or_none()
+	def load_user(user_email):
+		user = User.query.filter(User.email==user_email).one_or_none()
 		return user
 	
 	db.init_app(app)
 	migrate.init_app(app, db)
 	db.create_all()
 
-	# if no Admin exist, create a default one
-	if (User.query.count() == 0):
-		admin = User(username="Admin", password="password")
-		db.session.add(admin)
-		db.session.commit()
+	# # if no Admin exist, create a default one
+	# if (User.query.count() == 0):
+	# 	admin = User(username="Admin", password="password")
+	# 	db.session.add(admin)
+	# 	db.session.commit()
 
 	app.register_blueprint(router.apiv2Blueprint)
 	app.register_blueprint(loginBlueprint)	

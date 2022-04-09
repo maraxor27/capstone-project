@@ -9,10 +9,11 @@ from ..dataAccessLayer import getAllUsers, createUser, getUser, \
 userNamespace = Namespace("users", path="/users")
 
 userParser = userNamespace.model('User', {
-		"username": fields.String(default="username", required=True),
+		"firstname": fields.String(default="firstname", required=True),
+		"lastname": fields.String(default="lastname", required=True),
+		"email": fields.String(default="firstname.lastname@email.com", required=True),
 		"password": fields.String(default="password123", required=True, 
 			description="Will eventually be the hashed password"),
-		"email": fields.String(default="firstname.lastname@email.com", required=True),
 	})
 
 
@@ -37,31 +38,38 @@ class Users(Resource):
 		except DataAccessLayerException as e:
 			abort(e.code, e.message)
 
-@userNamespace.route("/<int:id>")
-@userNamespace.doc(params={"id":"An ID",}, description="ID of a User")
-class UserID(Resource):
+newPasswordParser = userNamespace.model('NewPassword', {
+		"password": fields.String(default="password123", required=True, 
+			description="Will eventually be the hashed password"),
+		"oldPassword": fields.String(default="password123", required=True, 
+			description="Will eventually be the hashed password"),
+	})
+
+@userNamespace.route("/<string:email>")
+@userNamespace.doc(params={"email":"An email",}, description="Email of a User")
+class UserEmail(Resource):
 	@userNamespace.response(200, 'Success')
 	@userNamespace.response(400, 'Invalid request')
 	@userNamespace.doc(description="This api endpoint returns the information for a specific user")
-	def get(self, id):
+	def get(self, email):
 		try:
-			return getUser(id)
+			return getUser(email)
 		except DataAccessLayerException as e:
 			abort(e.code, e.message)
 
 	@userNamespace.response(200, 'Success')
 	@userNamespace.response(400, 'Invalid request')
-	def delete(self, id):
+	def delete(self, email):
 		try:
-			return removeUser(id)
+			return removeUser(email)
 		except DataAccessLayerException as e:
 			abort(e.code, e.message)
 
 	@userNamespace.response(200, 'Success')
 	@userNamespace.response(400, 'Invalid request')
-	@userNamespace.expect(userParser)
-	def put(self, id):
+	@userNamespace.expect(newPasswordParser)
+	def put(self, email):
 		try:
-			return updateUser(id, request.json)
+			return updateUser(email, request.json)
 		except DataAccessLayerException as e:
 			abort(e.code, e.message)

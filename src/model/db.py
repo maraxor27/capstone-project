@@ -14,10 +14,11 @@ ma = flask_marshmallow.Marshmallow()
 
 class User(db.Model):
 	__tablename__ = "users"
-	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(100))
+	email = db.Column(db.String(100), primary_key=True)
+	firstname = db.Column(db.String(100))
+	lastname = db.Column(db.String(100))
 	password = db.Column(db.String(255))
-	email = db.Column(db.String(100))
+
 
 	created = db.Column(db.DateTime(timezone=True), default=datetime.now())
 
@@ -31,14 +32,13 @@ class User(db.Model):
 		return False
 
 	def get_id(self):
-		return self.id
+		return self.email
 
 	def __repr__(self):
-		val = f"User:{self.id} <"
-		val = val + f"username: {self.username}, "
+		val = f"User:{self.email} <"
+		val = val + f"firstname: {self.firstname}, "
+		val = val + f"lastname: {self.firstname}, "	
 		val = val + f"password: {self.password}, "
-		val = val + f"email: {self.email}, "
-
 		val = val + f"created: {self.created}"
 		val = val + ">"
 		return val

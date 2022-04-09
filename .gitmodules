@@ -1,0 +1,3 @@
+[submodule "src/decompiler"]
+	path = src/decompiler
+	url = https://github.com/maraxor27/capstone_decompiler.git

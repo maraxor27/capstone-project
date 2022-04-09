@@ -1,0 +1,98 @@
+textarea,
+pre {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+}
+
+.expandingArea {
+  position: relative;
+  /*border: 10px solid #888;
+  border-radius: 5px; */
+  background: #fff;
+  /*padding: 5px;*/
+  height: 500px;
+}
+
+.expandingArea > textarea,
+.expandingArea > pre {
+  padding: 5px;
+  background: transparent;
+  font: 400 13px/16px helvetica, arial, sans-serif;
+  /* Make the text soft-wrap */
+  /*white-space: pre-wrap;*/
+  /*word-wrap: break-word;*/
+}
+
+.expandingArea > textarea {
+  /* The border-box box model is used to allow
+   * padding whilst still keeping the overall width
+   * at exactly that of the containing element.
+   */
+  /*-webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;*/
+  font-size: small;
+  width: 100%;
+  /* This height is used when JS is disabled */
+  height: 100%;
+}
+
+.expandingArea.active > textarea {
+  /* Hide any scrollbars */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  /* Remove WebKit user-resize widget */
+  resize: none;
+}
+
+.expandingArea > pre {
+  display: none;
+}
+.expandingArea.active > pre {
+  display: block;
+  /* Hide the text; just using it for sizing */
+  visibility: hidden;
+}
+
+ul.sideBySide {
+  text-align: center;
+  padding: 0;
+}
+
+ul.sideBySide > li {
+  display: inline-block;
+  padding: 2rem;
+  width: 45%;
+}
+
+th.codeTableHeader {
+  border: 3px #f8f9fa solid;
+}
+
+footer {
+  padding: 25px 0;
+  text-align: center;
+}
+footer span.copyright {
+  font-size: 90%;
+  line-height: 40px;
+  text-transform: none;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
+footer ul.quicklinks {
+  font-size: 90%;
+  line-height: 40px;
+  margin-bottom: 0;
+  text-transform: none;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}

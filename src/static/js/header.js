@@ -1,7 +1,9 @@
 Vue.component('myheader', {
 	data: function() {
 		return {
-			username: "",
+			firstname:"",
+			lastname:"",
+			email: "",
 			password: "",
 			user: {},
 			logged_in: false,
@@ -17,27 +19,28 @@ Vue.component('myheader', {
 		}, (error) => {})
 	},
 	methods: {
-		login(username, password) {
+		login(email, password) {
 			axios({
 				method: 'post',
 				url: '/login',
 				data: {
-					'username': username,
+					'email': email,
 					'password': password
 				}
 			}).then((response) => {
 				this.login_success(response)
 			}, (error) => {
 				console.log(error)
-				this.error_message = "Invalid username password combination"
+				this.error_message = "Invalid email password combination"
 			})
 		},
 		login_success(response) {
 				this.user = response.data
 				this.error_message = ""
 				this.logged_in = true
-				this.username = ""
+				this.email = ""
 				this.password = ""
+				console.log(this.user._links.self)
 				this.$emit('user-update', this.user)
 		},
 		logout() {
@@ -50,52 +53,83 @@ Vue.component('myheader', {
 				this.$emit('user-update', this.user)
 			})
 		},
+
 	},
+
+
+				
+//Display of the header
 	template:
 	`
 	<div>
 		<b-navbar type="dark" variant="dark">
-			<b-navbar-nav>
-				<b-nav-item href="/">Home</b-nav-item>
-			</b-navbar-nav>
+		
+		
+			<b-navbar-brand 
+			<a href="/" >
+			<button type="button" class="btn btn-dark" style="margin: auto; font-size: larger;">C DECOMPILER</button>
+			</a>
+
+			</b-navbar-brand>
+		
 			<b-navbar-nav class="ml">
+				<b-navbar-nav>
+					<a href="/about" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">About this Project</button>
+					</a>
+					<a href="/terms" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">Terms of Use</button>
+					</a>
+				</b-navbar-nav>
+
 				<b-nav-item-dropdown text="User" v-if="!logged_in" right>
 					<li class="no-wrap" style="min-width: 17rem; margin: 4px;">
 						<div class="input-group input-group-sm mb-3">
 							<div class="input-group-prepend" style="width:6rem;">
-								<span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
+								<span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
 							</div>
-							<input type="text" class="form-control" 
-								v-model="username"
-								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+						<input type="text" class="form-control" 
+						v-model="email"
+						aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>
 					</li>
+			
 					<li class="no-wrap" style="min-width: 17rem; margin: 4px;">
 						<div class="input-group input-group-sm mb-3">
 							<div class="input-group-prepend" style="width:6rem;">
 								<span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
 							</div>
 							<input type="password" class="form-control" 
-								v-model="password"
-								aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+							v-model="password"
+							aria-label="Small" aria-describedby="inputGroup-sizing-sm">
 						</div>
 					</li>
+					
 					<li v-show="error_message != ''" style="color: red; margin-bottom: 1rem;">{{ error_message }}</li>
+			
 					<li style="margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
-							v-on:click="login(username, password)">
-							connect
+							v-on:click="login(email, password)">Connect
 						</button>
+						<a href="/signUp" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">Sign Up</button>
+						</a>
 					</li>
 				</b-nav-item-dropdown>
+
 				<b-nav-item-dropdown 
-						v-bind:text="user.username" 
-						v-else right>
+					v-bind:text="user.firstname" 
+					
+					v-else right>
 					<b-dropdown-item href="/account">Account</b-dropdown-item>
-					<li style="margin: 4px;">
+					<li class="no-wrap" style="min-width: 10rem; margin: 4px;">
 						<button class="btn btn-dark" style="margin: auto;" 
 							v-on:click="logout()">
-							logout
+							Logout
+						</button>
+						<a href="/accountSettings" >
+						<button type="button" class="btn btn-dark" style="margin: auto;">Account Setting</button>
+						</a>
 						</button>
 					</li>
 				</b-nav-item-dropdown>
